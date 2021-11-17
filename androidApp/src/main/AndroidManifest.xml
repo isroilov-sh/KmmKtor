@@ -3,6 +3,8 @@
     package="com.jetbrains.kmmktor2.android">
 
     <application
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/security_rules"
         android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

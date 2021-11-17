@@ -1,11 +1,13 @@
 package com.jetbrains.kmmktor2.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.jetbrains.kmmktor2.Greeting
+import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import kotlinx.coroutines.*
+import androidx.appcompat.app.AppCompatActivity
+import com.jetbrains.kmmktor2.Greeting
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,20 +19,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val tv: TextView = findViewById(R.id.text_view)
-        tv.text = "Loading..."
+        val btnGetIP: Button = findViewById(R.id.btnGetIP)
 
-        Toast.makeText(this, "hello", Toast.LENGTH_LONG).show()
-        mainScope.launch {
-            kotlin.runCatching {
-                greeting.greeting()
-            }.onSuccess {
-                tv.text = it
-            }.onFailure {
-                tv.text = it.localizedMessage
+        btnGetIP.setOnClickListener {
+            tv.text = "Loading..."
+            mainScope.launch {
+                kotlin.runCatching {
+                    greeting.greeting()
+                }.onSuccess {
+                    tv.text = it
+                }.onFailure {
+                    tv.text = it.localizedMessage
+                }
             }
-
-            Toast.makeText(this@MainActivity, "hello2", Toast.LENGTH_LONG).show()
         }
+
 
 
     }
